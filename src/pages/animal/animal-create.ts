@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AnimalProvider } from '../../providers/animal-provider';
 import { AnimalHome } from './animal-home';
 import { LoadingController } from 'ionic-angular';
+import { NFC, Ndef } from '@ionic-native/nfc';
 
 @Component({
     selector: 'page-animal-create',
@@ -19,13 +20,13 @@ export class AnimalCreate {
     private animal: any;
     constructor(public navCtrl: NavController, public navParams: NavParams,
         public animalProvider: AnimalProvider, private camera: Camera,
-        public formBuilder: FormBuilder, public loading: LoadingController) {
+        public formBuilder: FormBuilder, public loading: LoadingController,
+        private nfc: NFC, private ndef: Ndef) {
         this.animal = this.navParams.get('animal');
         if (this.animal != null) {
             this.formAnimal = formBuilder.group({
                 'codigo': [this.animal.codigo, Validators.required],
                 'nombre': [this.animal.nombre, Validators.required],
-                'edad': [this.animal.edad, Validators.required],
                 'peso': [this.animal.peso, Validators.required],
                 'raza': [this.animal.raza, Validators.required],
                 'description': [this.animal.description, Validators.required],
@@ -36,7 +37,6 @@ export class AnimalCreate {
             this.formAnimal = formBuilder.group({
                 'codigo': ['', Validators.required],
                 'nombre': ['', Validators.required],
-                'edad': ['', Validators.required],
                 'peso': ['', Validators.required],
                 'raza': ['', Validators.required],
                 'description': ['', Validators.required],
@@ -44,6 +44,10 @@ export class AnimalCreate {
                 'genero': ['', Validators.required]
             });
         }
+        this.udpateValidator = this.navParams.get('update');
+        this.nfc.addNdefFormatableListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
+        this.nfc.addNdefListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
+        this.nfc.addTagDiscoveredListener().subscribe((tagEvent: Event) => this.tagListenerSuccess1(tagEvent));
     }
     createAnimal(animalModel) {
         if (this.udpateValidator) {
@@ -70,6 +74,9 @@ export class AnimalCreate {
                     } else {
                         console.log('create a new animal', animalModel.value);
                         animalModel.value.indexKey = "animal";
+                        var mydate = new Date(animalModel.value.nacimiento);
+                        animalModel.value.edad = this.calculate_age(mydate.getMonth(),
+                            mydate.getDay(), mydate.getFullYear());
                         this.animalProvider.createAnimal(animalModel.value);
                         this.formAnimal.reset();
                         this.navCtrl.push(AnimalHome);
@@ -78,6 +85,22 @@ export class AnimalCreate {
                 })
             });
         }
+    }
+
+    calculate_age(birth_month, birth_day, birth_year) {
+        var today_date = new Date();
+        var today_year = today_date.getFullYear();
+        var today_month = today_date.getMonth();
+        var today_day = today_date.getDate();
+        var age = today_year - birth_year;
+
+        if (today_month < (birth_month - 1)) {
+            age--;
+        }
+        if (((birth_month - 1) == today_month) && (today_day < birth_day)) {
+            age--;
+        }
+        return age;
     }
 
     getPicture() {
@@ -95,4 +118,9 @@ export class AnimalCreate {
                 alert("Error al obtener la foto intenten de nuevo por favor");
             });
     }
+
+    tagListenerSuccess1(tagEvent) {
+        this.formAnimal.controls.codigo.setValue(this.nfc.bytesToHexString(tagEvent.tag.id));
+         console.log(tagEvent.type);
+     }
 }

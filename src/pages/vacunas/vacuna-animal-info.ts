@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
 import { AnimalProvider } from '../../providers/animal-provider';
+import { VacunaAnimal } from './vacuna-animal-register';
 
 @Component({
     selector: 'page-vacuna-animal-info',
@@ -21,5 +22,8 @@ export class VacunaAnimalInfo {
         this.vacunaProvider.getVacunaByAnimal(this.animal.codigo).then((data) => {
             this.animalVacunas = data;
         });
+    }
+    goToRegisterAnimal() {
+        this.navCtrl.push(VacunaAnimal, { animal: this.animal });
     }
 }
