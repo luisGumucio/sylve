@@ -45,17 +45,24 @@ export class AnimalCreate {
             });
         }
         this.udpateValidator = this.navParams.get('update');
-        this.nfc.addNdefFormatableListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
-        this.nfc.addNdefListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
-        this.nfc.addTagDiscoveredListener().subscribe((tagEvent: Event) => this.tagListenerSuccess1(tagEvent));
+        // this.nfc.addNdefFormatableListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
+        // this.nfc.addNdefListener().subscribe((tagEvent) => this.tagListenerSuccess1(tagEvent));
+        // this.nfc.addTagDiscoveredListener().subscribe((tagEvent: Event) => this.tagListenerSuccess1(tagEvent));
     }
     createAnimal(animalModel) {
         if (this.udpateValidator) {
+            let loader = this.loading.create({
+                content: 'Validando espere por favor!..',
+            });
             console.log("udpate animal", animalModel.value);
-            animalModel.value._id = this.animal._id;
-            animalModel.value._rev = this.animal._rev;
-            animalModel.value.indexKey = this.animal.indexKey;
-            this.animalProvider.updateTodo(animalModel.value);
+            loader.present().then(() => {
+                animalModel.value._id = this.animal._id;
+                animalModel.value._rev = this.animal._rev;
+                animalModel.value.indexKey = this.animal.indexKey;
+                this.animalProvider.updateTodo(animalModel.value);
+                this.navCtrl.push(AnimalHome);
+                loader.dismiss();
+            })
         } else {
             let loader = this.loading.create({
                 content: 'Validando espere por favor!..',
@@ -121,6 +128,6 @@ export class AnimalCreate {
 
     tagListenerSuccess1(tagEvent) {
         this.formAnimal.controls.codigo.setValue(this.nfc.bytesToHexString(tagEvent.tag.id));
-         console.log(tagEvent.type);
-     }
+        console.log(tagEvent.type);
+    }
 }

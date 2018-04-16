@@ -389,6 +389,36 @@ export class AnimalProvider {
 
     });
   }
+  findAnimalByInseminacion() {
+    return new Promise(resolve => {
+      
+      this.db.find({
+        selector: { indexKey: "animal", genero:"Hembra"},
+        
+        include_docs: true
+
+      }).then((result) => {
+
+        this.data = [];
+
+        result.docs.map((row) => {
+          this.data.push(row);
+        });
+
+        resolve(this.data);
+
+        this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+          this.handleChange(change);
+        });
+
+      }).catch((error) => {
+
+        console.log(error);
+
+      });
+
+    });
+  }
 
   findAnimalByID(code) {
     return new Promise(resolve => {
