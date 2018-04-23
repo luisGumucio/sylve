@@ -17,7 +17,7 @@ export class AnimalProvider {
          index: { fields: ["animal"] }
        });
    */
-    this.remote = 'http://172.20.10.7:5984/sylve';
+    this.remote = 'http://localhost:5984/sylve';
 
     let options = {
       live: true,
@@ -49,6 +49,48 @@ export class AnimalProvider {
             console.log(error);
         });
     });
+}
+getAlimentacion() {
+  return new Promise(resolve => {
+      this.db.find({
+          selector: { indexKey: 'alimentacion' },
+          fields: ['_id', "insumo", "cantidad", "porcentaje","diaMaximo", "edad", "_rev",
+              "indexKey"],
+          include_docs: true
+      }).then((result) => {
+          this.data = [];
+          result.docs.map((row) => {
+              this.data.push(row);
+          });
+          resolve(this.data);
+          this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+              this.handleChange(change);
+          });
+      }).catch((error) => {
+          console.log(error);
+      });
+  });
+}
+getAlimentacionByMaximo(day) {
+  return new Promise(resolve => {
+      this.db.find({
+          selector: { indexKey: 'alimentacion', diaMaximo: day },
+          fields: ['_id', "insumo", "cantidad", "porcentaje","diaMaximo", "edad", "_rev",
+              "indexKey"],
+          include_docs: true
+      }).then((result) => {
+          this.data = [];
+          result.docs.map((row) => {
+              this.data.push(row);
+          });
+          resolve(this.data);
+          this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+              this.handleChange(change);
+          });
+      }).catch((error) => {
+          console.log(error);
+      });
+  });
 }
   getAnimales() {
     this.db.find({
@@ -336,6 +378,9 @@ export class AnimalProvider {
   }
 
   createAnimal(todo) {
+    this.db.post(todo);
+  }
+  createAlimentacion(todo) {
     this.db.post(todo);
   }
 

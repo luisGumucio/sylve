@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar color="gras">
+        <ion-title>Informacion Alimentacion</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content scroll="false">
+    <ion-row>
+        <ion-col style="background: blue; color: white">
+            <strong>Insumo</strong>
+        </ion-col>
+        <ion-col style="background: blue; color: white">
+            <strong>Cantidad</strong>
+        </ion-col>
+        <ion-col style="background: blue; color: white">
+            <strong>Porcentaje</strong>
+        </ion-col>
+        <ion-col style="background: blue; color: white">
+            <strong>Edad Maxima</strong>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let ali of alimentacionList">
+        <ion-col>
+            <strong>{{ali.insumo}}</strong>
+        </ion-col>
+        <ion-col>
+            <strong>{{ali.cantidad}}</strong>
+        </ion-col>
+        <ion-col>
+            <strong>{{ali.porcentaje}}</strong>
+        </ion-col>
+        <ion-col>
+                <strong>{{ali.edad}}</strong>
+            </ion-col>
+    </ion-row>
+
+    <ion-fab right bottom>
+        <button ion-fab color="reds" (click)="goToRegisterAlimentacion()">
+            <ion-icon name="md-add-circle"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

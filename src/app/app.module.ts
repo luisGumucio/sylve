@@ -21,6 +21,8 @@ import { AnimalProvider } from '../providers/animal-provider';
 import { AnimalHome } from '../pages/animal/animal-home';
 import { AnimalCreate } from '../pages/animal/animal-create';
 import { AnimalInfoUnit } from '../pages/animal/animal-info-unit';
+import { AlimentacionHome } from '../pages/alimentacion/alimentacion-home';
+import { AlimentacionCreate } from '../pages/alimentacion/alimentacion-create';
 //import { TratamientoAnimalInfo } from '../pages/tratamiento/tratamiento-animal-info';
 import { VacunaAnimalInfo } from '../pages/vacunas/vacuna-animal-info';
 import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
@@ -35,7 +37,9 @@ import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
     AnimalInfoUnit,
     VacunaAnimalInfo,
     AnimalCreate,
-    VacunaAnimal
+    VacunaAnimal,
+    AlimentacionHome,
+    AlimentacionCreate
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
     AnimalInfoUnit,
     VacunaAnimalInfo,
     AnimalCreate,
-    VacunaAnimal
+    VacunaAnimal,
+    AlimentacionHome,
+    AlimentacionCreate
   ],
   providers: [
     Camera,
