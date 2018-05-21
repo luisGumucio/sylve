@@ -1,0 +1,53 @@
+<ion-header>
+    <ion-navbar color="gras">
+        <ion-title>Informacion Alimentacion</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content scroll="false">
+    <ion-card>
+
+        <img src="/assets/IconoAnimal.png" class="center">
+
+        <ion-item>
+            <ion-icon name="football" item-start large></ion-icon>
+            <h2>Estado Actual</h2>
+            <p>{{animal.estado}}</p>
+        </ion-item>
+
+        <ion-item>
+            <ion-icon name="wine" item-left large></ion-icon>
+            <h2>Animal</h2>
+            <p>{{animal.nombre}}</p>
+        </ion-item>
+
+        <ion-item>
+            <button ion-button icon-left clear item-end>
+                <ion-icon name="navigate"></ion-icon>
+                Cambiar estado
+            </button>
+        </ion-item>
+
+    </ion-card>
+    <ion-row>
+            <ion-col style="background: blue; color: white">
+                <strong>Estado</strong>
+            </ion-col>
+            <ion-col style="background: blue; color: white">
+                <strong>Fecha Estado</strong>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let ali of insumoList">
+            <ion-col>
+                <strong>{{ali.estado}}</strong>
+            </ion-col>
+            <ion-col>
+                <strong>{{ali.FechaEstado}}</strong>
+            </ion-col>
+        </ion-row>
+    
+        <ion-fab right bottom>
+            <button ion-fab color="reds" (click)="goToRegisterAlimentacion()">
+                <ion-icon name="md-add-circle"></ion-icon>
+            </button>
+        </ion-fab>
+</ion-content>

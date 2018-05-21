@@ -15,23 +15,28 @@
           <br>Alimentacion
         </div>       
         <div class="col text-center">
-          <img src="assets/vacuna.png" style="max-width: 70%;">
+          <img src="assets/vacuna.png" style="max-width: 70%;" (click)="goPageVacuna()">
           <br>Vacuna
         </div>     
       </div>
       <div class="row icon-row">
         <div class="col text-center">
-          <img src="assets/clock.jpg" style="max-width: 70%;">
+          <img src="assets/clock.jpg" style="max-width: 70%;" (click)="goPageTratamiento()">
           <br>Tratamiento
         </div>
         <div class="col text-center">
-          <img src="/assets/user.png"  style="max-width: 70%;">
+          <img src="/assets/user.png"  style="max-width: 70%;" (click)="goPageUsuario()">
           <br>Usuario
         </div>      
         <div class="col text-center">
-          <img src="assets/report.png" style="max-width: 70%;">
+          <img src="assets/report.png" style="max-width: 70%;" (click)="goPageReport()">
           <br>Reportes
         </div>   
       </div>
     </section>
+    <ion-fab right bottom>
+      <button ion-fab color="reds" (click)="logout()">
+          <ion-icon name="ios-exit"></ion-icon>
+      </button>
+  </ion-fab>
   </ion-content>

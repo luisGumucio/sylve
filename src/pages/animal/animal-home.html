@@ -17,11 +17,6 @@
                 <p>Codigo: {{animal.codigo}}</p>
             </ion-item>
             <ion-item-options>
-                    <div *ngIf = "animal.genero == 'Hembra'">
-                            <button ion-button icon-only color="light" style="visibility:visible;">
-                                    <ion-icon name="md-add-circle"></ion-icon>
-                                  </button>
-                          </div>
                 <button ion-button icon-only color="primary" (click)="informationAnimal(animal)">
                             <ion-icon name="md-information-circle"></ion-icon>
                           </button>
@@ -48,18 +43,18 @@
             <button ion-fab  (click)="share('crear', fab)">
                   <img src="assets/alimentacion.png"> 
               </button>
-              <ion-label class="las1">Crear Animal</ion-label>
+              <ion-label class="lasmaitwo">Crear Animal</ion-label>
             <button ion-fab color="secondary"  (click)="share('actualizar', fab)">
                     <ion-icon name="md-finger-print"></ion-icon>
                     
                   </button>
-                  <ion-label class="las2">Actualizar</ion-label>
+                  <ion-label class="lasmainone">Actualizar</ion-label>
 
                   <button ion-fab color="secondary"  (click)="share('inseminacion', fab)">
                     <ion-icon name="md-finger-print"></ion-icon>
                     
                   </button>
-                  <ion-label class="las">Ver Inseminacion</ion-label>
+                  <ion-label class="lasmain">Ver Inseminacion</ion-label>
         </ion-fab-list>
     </ion-fab>
 </ion-content>

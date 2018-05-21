@@ -34,22 +34,46 @@
     </ion-item>
     <ion-fab right bottom #fab>
         <button ion-fab (click)="openFabButton()">
-                    Historial
-             </button>
-        <ion-fab-list side="top">
-            <button ion-fab  (click)="share('vacuna', fab)">
-                  <img src="assets/alimentacion.png"> 
-              </button>
-              <ion-label class="las1">Vacuna</ion-label>
-            <button ion-fab color="secondary"  (click)="share('alimentacion', fab)">
+            Historial
+        </button>
+        <div *ngIf="animal.genero == 'Hembra'">
+            <ion-fab-list side="top">
+
+                <button ion-fab (click)="share('vacuna', fab)">
+                    <img src="assets/alimentacion.png">
+                </button>
+                <ion-label class="las1">Vacuna</ion-label>
+                <button ion-fab color="secondary" (click)="share('alimentacion', fab)">
                     <ion-icon name="md-finger-print"></ion-icon>
-                    
-                  </button>
-                  <ion-label class="las2">Alimentacion</ion-label>
-            <button ion-fab color="secondary" (click)="share('tratamiento', fab)">
+
+                </button>
+                <ion-label class="las2">Alimentacion</ion-label>
+                <button ion-fab color="secondary" (click)="share('tratamiento', fab)">
                     <ion-icon name="md-finger-print"></ion-icon>
-                  </button>
-                  <ion-label class="las">Tratamiento</ion-label>
-        </ion-fab-list>
+                </button>
+                <ion-label class="las4">Tratamiento</ion-label>
+                <button ion-fab color="secondary" (click)="share('inseminacion', fab)">
+                    <ion-icon name="md-finger-print"></ion-icon>
+                </button>
+                <ion-label class="las">Inseminacion</ion-label>
+            </ion-fab-list>
+        </div>
+        <div *ngIf="animal.genero == 'Macho'">
+            <ion-fab-list side="top">
+                <button ion-fab (click)="share('vacuna', fab)">
+                    <img src="assets/alimentacion.png">
+                </button>
+                <ion-label class="lasmaitwo">Vacuna</ion-label>
+                <button ion-fab color="secondary" (click)="share('alimentacion', fab)">
+                    <ion-icon name="md-finger-print"></ion-icon>
+
+                </button>
+                <ion-label class="lasmainone">Alimentacion</ion-label>
+                <button ion-fab color="secondary" (click)="share('tratamiento', fab)">
+                    <ion-icon name="md-finger-print"></ion-icon>
+                </button>
+                <ion-label class="lasmain">Tratamiento</ion-label>
+            </ion-fab-list>
+        </div>
     </ion-fab>
 </ion-content>

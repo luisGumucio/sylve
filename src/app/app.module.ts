@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
+
 import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
@@ -21,11 +23,15 @@ import { AnimalProvider } from '../providers/animal-provider';
 import { AnimalHome } from '../pages/animal/animal-home';
 import { AnimalCreate } from '../pages/animal/animal-create';
 import { AnimalInfoUnit } from '../pages/animal/animal-info-unit';
+import { AnimalInseminacionHome } from '../pages/animal/animal-inseminacion-home';
 import { AlimentacionHome } from '../pages/alimentacion/alimentacion-home';
 import { AlimentacionCreate } from '../pages/alimentacion/alimentacion-create';
 //import { TratamientoAnimalInfo } from '../pages/tratamiento/tratamiento-animal-info';
 import { VacunaAnimalInfo } from '../pages/vacunas/vacuna-animal-info';
 import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
+import { UsuarioHome } from '../pages/usuario/usuario-home';
+import { LoginPage } from '../pages/login/login';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,10 +45,14 @@ import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
     AnimalCreate,
     VacunaAnimal,
     AlimentacionHome,
-    AlimentacionCreate
+    AlimentacionCreate,
+    AnimalInseminacionHome,
+    LoginPage,
+    UsuarioHome
   ],
   imports: [
     BrowserModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -58,7 +68,10 @@ import { VacunaAnimal } from '../pages/vacunas/vacuna-animal-register';
     AnimalCreate,
     VacunaAnimal,
     AlimentacionHome,
-    AlimentacionCreate
+    AlimentacionCreate,
+    AnimalInseminacionHome,
+    LoginPage,
+    UsuarioHome
   ],
   providers: [
     Camera,

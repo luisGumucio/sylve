@@ -28,12 +28,13 @@ export class AnimalProvider {
     this.db.sync(this.remote, options);
 
   }
+  
   getAnimal() {
     return new Promise(resolve => {
         this.db.find({
             selector: { indexKey: 'animal' },
             fields: ['_id', "nombre", "codigo", "edad",
-                "peso", "raza", "description", "nacimiento", "genero", "_rev",
+                "peso", "raza", "description", "nacimiento", "genero", "_rev", "estado",
                 "indexKey"],
             include_docs: true
         }).then((result) => {
@@ -49,6 +50,28 @@ export class AnimalProvider {
             console.log(error);
         });
     });
+}
+getUsers() {
+  return new Promise(resolve => {
+      this.db.find({
+          selector: { indexKey: 'usuario' },
+          fields: ['_id', "usuario", "rol", "nombre",
+              "apellido", "password",  "_rev", 
+              "indexKey"],
+          include_docs: true
+      }).then((result) => {
+          this.data = [];
+          result.docs.map((row) => {
+              this.data.push(row);
+          });
+          resolve(this.data);
+          this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+              this.handleChange(change);
+          });
+      }).catch((error) => {
+          console.log(error);
+      });
+  });
 }
 getAlimentacion() {
   return new Promise(resolve => {
@@ -75,7 +98,28 @@ getAlimentacionByMaximo(day) {
   return new Promise(resolve => {
       this.db.find({
           selector: { indexKey: 'alimentacion', diaMaximo: day },
-          fields: ['_id', "insumo", "cantidad", "porcentaje","diaMaximo", "edad", "_rev",
+          fields: ['_id', "insumo", "cantidad", "porcentaje","diaMaximo", "edad", "_rev", 
+              "indexKey"],
+          include_docs: true
+      }).then((result) => {
+          this.data = [];
+          result.docs.map((row) => {
+              this.data.push(row);
+          });
+          resolve(this.data);
+          this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+              this.handleChange(change);
+          });
+      }).catch((error) => {
+          console.log(error);
+      });
+  });
+}
+getInseminacion(codigo) {
+  return new Promise(resolve => {
+      this.db.find({
+          selector: { indexKey: 'inseminacion', idAnimal: codigo },
+          fields: ['_id', "estado", "FechaEstado", "idAnimal", "_rev",
               "indexKey"],
           include_docs: true
       }).then((result) => {
@@ -375,6 +419,28 @@ getAlimentacionByMaximo(day) {
 
     });
 
+  }
+
+  getUser(user, pass) {
+    return new Promise(resolve => {
+        this.db.find({
+            selector: { indexKey: 'usuario', usuario: user, password:pass },
+            fields: ['_id', "usuario", "rol", "_rev","password",
+                "indexKey"],
+            include_docs: true
+        }).then((result) => {
+            this.data = [];
+            result.docs.map((row) => {
+                this.data.push(row);
+            });
+            resolve(this.data);
+            this.db.changes({ live: true, since: 'now', include_docs: true }).on('change', (change) => {
+                this.handleChange(change);
+            });
+        }).catch((error) => {
+            console.log(error);
+        });
+    });
   }
 
   createAnimal(todo) {

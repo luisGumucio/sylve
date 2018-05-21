@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-navbar color="gras">
+        <ion-title>Usuario</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content scroll="false">
+    <ion-list no-lines>
+        <ion-item-sliding *ngFor="let user of userList">
+            <ion-item>
+                <ion-avatar item-start>
+                    <img src="/assets/user.png">
+                </ion-avatar>
+                <h2>Nombre: {{user.nombre}}</h2>
+                <p>Apellido: {{user.apellido}}</p>
+                <p>Usuario: {{user.usuario}}</p>
+                <p>Rol: {{user.rol}}</p>
+            </ion-item>
+            <ion-item-options>
+                <button ion-button icon-only color="primary" (click)="informationAnimal(animal)">
+                            <ion-icon name="md-information-circle"></ion-icon>
+                          </button>
+                <button ion-button icon-only color="light" (click)="updateAnimal(animal)">
+                      <ion-icon name="create"></ion-icon>
+                    </button>
+                <button ion-button icon-only color="primary" (click)="deleteAnimal(animal)">
+                      <ion-icon name="md-trash"></ion-icon>
+                    </button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+    <ion-fab right bottom>
+        <button ion-fab color="reds" (click)="goToRegisterAlimentacion()">
+            <ion-icon name="md-add-circle"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>

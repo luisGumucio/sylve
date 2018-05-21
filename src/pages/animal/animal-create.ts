@@ -84,7 +84,17 @@ export class AnimalCreate {
                         var mydate = new Date(animalModel.value.nacimiento);
                         animalModel.value.edad = this.calculate_age(mydate.getMonth(),
                             mydate.getDay(), mydate.getFullYear());
-                        this.animalProvider.createAnimal(animalModel.value);
+                        if(animalModel.value.genero == 'Hembra') {
+                            var inseminacion = {
+                                estado : "inactivo",
+                                FechaEstado: new Date(),
+                                idAnimal: animalModel.value.codigo,
+                                indexKey: "inseminacion"
+                            }
+                            animalModel.value.estado = inseminacion.estado;
+                            this.animalProvider.createAnimal(inseminacion);
+                            this.animalProvider.createAnimal(animalModel.value);
+                        }
                         this.formAnimal.reset();
                         this.navCtrl.push(AnimalHome);
                         loader.dismiss();

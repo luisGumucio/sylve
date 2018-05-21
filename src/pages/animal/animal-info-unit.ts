@@ -4,6 +4,7 @@ import { NavParams } from 'ionic-angular';
 import { FabContainer } from 'ionic-angular';
 import { VacunaAnimalInfo } from '../vacunas/vacuna-animal-info';
 import { AlimentacionHome } from '../alimentacion/alimentacion-home';
+import { AnimalInseminacionHome } from './animal-inseminacion-home';
 
 @Component({
     selector: 'page-animal-info-unit',
@@ -38,6 +39,9 @@ export class AnimalInfoUnit {
                 this.navCtrl.push(AlimentacionHome, { animal: this.animal });
                 break;
             case "tratamiento":
+                break;
+            case "inseminacion":
+                this.navCtrl.push(AnimalInseminacionHome, { animal: this.animal });
                 break;
         }
     }
